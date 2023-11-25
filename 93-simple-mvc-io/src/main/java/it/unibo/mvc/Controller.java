@@ -10,7 +10,7 @@ import java.io.PrintStream;
 public class Controller {
     private String PATH = System.getProperty("user.home")
     + File.separator
-    + BadIOGUI.class.getSimpleName() + ".txt";
+    + "output.txt";
     
     private File currentFile = new File(PATH);
 
@@ -39,15 +39,10 @@ public class Controller {
         if(content.isBlank()){
             throw new IllegalArgumentException("The string is blank.");
         }
-        else if(this.currentFile.exists()){
-            try (PrintStream ps = new PrintStream(currentFile)){
-                ps.println(content);
-            } catch (IOException e) {
+        try (PrintStream ps = new PrintStream(currentFile)){
+            ps.println(content);
+        } catch (IOException e) {
                 e.printStackTrace();
-            }
-        }
-        else {
-            throw new NullPointerException("No file has been set");
         }
     }
 }
